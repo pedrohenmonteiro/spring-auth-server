@@ -6,9 +6,9 @@ import org.springframework.security.oauth2.server.authorization.settings.Authori
 
 @Configuration
 public class AuthorizationServerConfig {
-    
-    @Bean
-    AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().build();
-    }
+  /* Apenas constroi o AS com as configurações desejadas. */
+  @Bean
+  AuthorizationServerSettings authorizationServerSettings() {
+    return AuthorizationServerSettings.builder().build();
+  }
 }

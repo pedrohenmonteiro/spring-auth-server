@@ -8,18 +8,18 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class UserStoreConfig {
-    
-    @Bean
-    UserDetailsService userDetailsService() {
-        var userDetailsManager = new InMemoryUserDetailsManager();
-
-        userDetailsManager.createUser(
-            User.withUsername("user")
+  /*
+   * Usuários cadastrados no AS, exemplo de implementação em memória mas poderia
+   * ser via banco.
+   */
+  @Bean
+  public UserDetailsService userDetailsService() {
+    var userDetailsManager = new InMemoryUserDetailsManager();
+    userDetailsManager.createUser(
+        User.withUsername("user")
             .password("{noop}password")
             .roles("USER")
-            .build()
-        );
-
-        return userDetailsService();
-    }
+            .build());
+    return userDetailsManager;
+  }
 }

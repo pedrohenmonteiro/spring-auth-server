@@ -14,23 +14,25 @@ import org.springframework.security.oauth2.server.authorization.settings.ClientS
 
 @Configuration
 public class ClientStoreConfig {
-    
-    @Bean
-    RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient registeredClient = RegisteredClient
-        .withId(UUID.randomUUID().toString())
+  /*
+   * Clientes conhecidos pelo AS, exemplo de implementação em memória, mas poderia
+   * ser via banco.
+   */
+  @Bean
+  RegisteredClientRepository registeredClientRepository() {
+    RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
         .clientId("client-server")
         .clientSecret("{noop}secret")
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-        .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-        .redirectUri("http://localhost:8080/login/oauth2/code/client-server")
+        .redirectUri("http://127.0.0.1:8080/login/oauth2/code/client-server-oidc")
         .scope(OidcScopes.OPENID)
         .scope(OidcScopes.PROFILE)
-        .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+        .clientSettings(ClientSettings.builder()
+            .requireAuthorizationConsent(true).build())
         .build();
 
-        return new InMemoryRegisteredClientRepository(registeredClient);
-    }
+    return new InMemoryRegisteredClientRepository(registeredClient);
+  }
 }

@@ -17,10 +17,13 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+/*
+ * Configura as chaves para assinar e decodificar o token de acesso utilizado pelas requisições autenticadas.
+ */
 @Configuration
 public class TokenStoreConfig {
-    
-     @Bean
+
+  @Bean
   JWKSource<SecurityContext> jwkSource() {
     KeyPair keyPair = generateRsaKey();
     RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
